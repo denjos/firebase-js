@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="main-container">
+        <div class="main-form">
+          <div class="btn-container">
+            <button class="btn" id="create">CREATE</button>
+            <button class="btn" id="upload">UPLOAD</button>
+            <button class="btn" id="btn-login">LOGIN</button>
+          </div>
+
+          <form action="" method="post" class="form-search" id="form-search">
+            <input
+              type="text"
+              placeholder="Buscar img"
+              class="input-search"
+              id="input-search"
+            />
+            <button class="btn btn-search">BUSCAR</button>
+          </form>
+        </div>
+        <div class="img-container user-container">
+          <div id="username">
+            anonymous
+          </div>
+          <img id="user-img"
+            src="https://sophosnews.files.wordpress.com/2014/04/anonymous-250.jpg?w=250"
+            alt=""
+            class="img-content"
+          />
+        </div>
+      </div>
+      <div class="img-layout" id="img-layout"></div>
+    </div>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/5.11.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-messaging.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.1/firebase-functions.js"></script>
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#config-web-app -->
+
+    <script src="./helpers.js"></script>
+    <script src="./index.js"></script>
+    <link rel="stylesheet" href="./modal.css" />
+  </body>
+</html>
