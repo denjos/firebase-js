@@ -20,8 +20,8 @@ firestore = firebase.firestore();
 imgRef = firestore.collection("imgstore");
 
 imgRef.onSnapshot(function(snap) {
-    let img_layout = document.getElementById("img-layout");
-  img_layout.innerHTML="";
+  let img_layout = document.getElementById("img-layout");
+  img_layout.innerHTML = "";
   snap.forEach(function(doc) {
     imgList([doc.data()][0]);
   });
@@ -48,10 +48,9 @@ function imgList(data) {
 document.getElementById("form-search").addEventListener("click", function(e) {
   e.preventDefault();
   let search = document.getElementById("input-search").value;
-  if (search!="") {
-      searchFor(search);
+  if (search != "") {
+    searchFor(search);
   }
-  
 });
 document.getElementById("upload").addEventListener("click", function(e) {
   let container = document.createElement("div");
@@ -96,44 +95,66 @@ document.getElementById("upload").addEventListener("click", function(e) {
   printModal(container);
 });
 function gmailLogin() {
-    let provider=new firebase.auth.GoogleAuthProvider()
-    firebase.auth().signInWithPopup(provider)
-    .then(function(result){
-        setUser(result.user);
+  let provider = new firebase.auth.GoogleAuthProvider();
+  firebase
+    .auth()
+    .signInWithPopup(provider)
+    .then(function(result) {
+      setUser(result.user);
+    });
+}
+
+function gmailLogout() {
+  firebase
+    .auth()
+    .signOut()
+    .then(function() {
+      let username = document.getElementById("username");
+      username.textContent = "anonymous";
+      let user_img = document.getElementById("user-img");
+      user_img.src =
+        "https://sophosnews.files.wordpress.com/2014/04/anonymous-250.jpg?w=250";
+      user_img.src = data.photoURL;
+      username.textContent = data.displayName;
     })
+    .catch(function(error) {
+      // An error happened.
+    });
 }
+
 function setUser(data) {
-  let username=document.getElementById("username");
-  let user_img=document.getElementById("user-img");
-  user_img.src=data.photoURL;
-  username.textContent=data.displayName;
+  let username = document.getElementById("username");
+  let user_img = document.getElementById("user-img");
+  user_img.src = data.photoURL;
+  username.textContent = data.displayName;
 }
-document.getElementById('btn-login').addEventListener('click',function (e) {
+let i = 0;
+document.getElementById("btn-login").addEventListener("click", function(e) {
+  if (i == 0) {
     gmailLogin();
-})
-firebase.auth().onAuthStateChanged(function(u){
-    if (!u) {
-        console.log("login for publish");
-    }
-    else
-        setUser(u);
+    i = 1;
+    document.getElementById("btn-login").textContent = "LOGOUT";
+  } else {
+    gmailLogout();
+    i = 0;
+    document.getElementById("btn-login").textContent = "LOGIN";
+  }
 });
+firebase.auth().onAuthStateChanged(function(u) {});
 
 function searchFor(title) {
-    imgRef.where("title","==",title)
+  imgRef
+    .where("title", "==", title)
     .get()
-    .then(function (snap) {
-        if (snap.empty) {
-            alert("sin resultados");
-        }
-        else
-        {
-            let img_layout = document.getElementById("img-layout");
-            img_layout.innerHTML="";
-            snap.forEach(el=>{
-                imgList([el.data()][0]);
-            })
-
-        }
-    })
+    .then(function(snap) {
+      if (snap.empty) {
+        alert("sin resultados");
+      } else {
+        let img_layout = document.getElementById("img-layout");
+        img_layout.innerHTML = "";
+        snap.forEach(el => {
+          imgList([el.data()][0]);
+        });
+      }
+    });
 }
