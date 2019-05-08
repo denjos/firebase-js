@@ -140,7 +140,11 @@ document.getElementById("btn-login").addEventListener("click", function(e) {
     document.getElementById("btn-login").textContent = "LOGIN";
   }
 });
-firebase.auth().onAuthStateChanged(function(u) {});
+firebase.auth().onAuthStateChanged(function(u) {
+  console.log(u);
+  setUser(u)
+
+});
 
 function searchFor(title) {
   imgRef
